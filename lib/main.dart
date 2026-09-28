@@ -45,25 +45,37 @@ class ProfilePage extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 390),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(24, 28, 24, 26),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _header(context),
-                const SizedBox(height: 24),
-                _identity(),
-                const SizedBox(height: 24),
-                _stats(),
-                const SizedBox(height: 25),
-                _about(),
-                const SizedBox(height: 21),
-                _skills(),
-                const SizedBox(height: 23),
-                _projects(),
-                const SizedBox(height: 31),
-                _contacts(context),
-              ],
+          child: LayoutBuilder(
+            builder: (context, constraints) => Container(
+              key: const ValueKey('profile-frame'),
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8FAFC),
+                borderRadius: BorderRadius.circular(40),
+                border: Border.all(color: const Color(0xFFCBD5E1), width: 2),
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(22, 28, 22, 26),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _header(context),
+                    const SizedBox(height: 24),
+                    _identity(),
+                    const SizedBox(height: 24),
+                    _stats(),
+                    const SizedBox(height: 25),
+                    _about(),
+                    const SizedBox(height: 21),
+                    _skills(),
+                    const SizedBox(height: 23),
+                    _projects(),
+                    const SizedBox(height: 31),
+                    _contacts(context),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
@@ -103,6 +115,7 @@ class ProfilePage extends StatelessWidget {
           height: 140,
           key: const ValueKey('profile-avatar'),
           child: Stack(
+            fit: StackFit.expand,
             children: [
               Container(
                 padding: const EdgeInsets.all(4),
@@ -125,8 +138,9 @@ class ProfilePage extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: ClipOval(
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=480&h=480&q=85',
+                    key: const ValueKey('profile-avatar-clip'),
+                    child: Image.asset(
+                      'images/z7280183976295_740b340b375a3cebde732a01a7e526cd.jpg',
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) =>
                           const ColoredBox(

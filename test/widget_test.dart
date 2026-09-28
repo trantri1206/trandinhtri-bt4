@@ -33,6 +33,21 @@ void main() {
       const Size(140, 140),
     );
     expect(
+      tester.getSize(find.byKey(const ValueKey('profile-avatar-clip'))),
+      const Size(124, 124),
+    );
+    expect(
+      tester.getSize(find.byKey(const ValueKey('profile-frame'))).width,
+      390,
+    );
+    final avatarImage = tester.widget<Image>(
+      find.descendant(
+        of: find.byKey(const ValueKey('profile-avatar')),
+        matching: find.byType(Image),
+      ),
+    );
+    expect(avatarImage.image, isA<AssetImage>());
+    expect(
       tester.getSize(find.byKey(const ValueKey('project-E-Shop Flutter'))),
       const Size(165, 145),
     );
